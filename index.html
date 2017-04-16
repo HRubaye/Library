@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <title>Libray App</title>
+	<meta charset="utf-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.17/angular.min.js"></script>-->
+    <style>
+        .bg-body{
+            background-image:url('images/bg-html.jpg');
+            background-size:cover;
+        }
+    </style>
+</head>
+<body ng-controller="LibCtrl" class="bg-body">
+    <div class="container">
+        <h2 style="color:maroon;font-weight:900;font-size:xx-large ;font-family: 'Kaushan Script', cursive;" class="text-center">The Library Application</h2>
+        <form class="form-horizontal" role="form" ng-submit="addRow()">
+            <div class="form-group">
+                
+                <label class="col-md-2 control-label">Book Name</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="name" ng-model="name" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Author</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="author" ng-model="author" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-2 control-label">Publish</label>
+                <div class="col-md-4">
+                    <input type="text" class="form-control" name="publish" ng-model="publish" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div style="padding-left:110px">
+                    <input type="submit" value="Add New Book" class="btn btn-primary" />
+                    Rows to display : <input type="number"  step="1" ng-model="rowCount" max="5" min="0" />
+                    Sort By :
+                    <select ng-model="sortColumn">
+                        <option value="name">Book Name ASC</option>
+                        <option value="+dateOfBirth">Authpr ASC</option>
+                        <option value="+gender">Publish ASC</option>
+                         
+                    </select>
+                </div>
+            </div>
+        </form>
+        <div class="row">
+            <label class="col-xs-1">search</label>
+            <div class="col-xs-2 col-md-2 col-md-offset-2">
+                <input type="text" class="form-control" name="name" ng-model="searchBook" />
+            </div>
+
+        </div>
+        <table class="table">
+            <tr>
+                <th>
+                    <a href="" ng-click="orderByField='name'; reverseSort = !reverseSort">Book Name</a>
+                </th>
+                <th>
+                    Author
+                </th>
+                <th>
+                    Publish
+                </th>
+                <th>
+                    Action
+                </th>
+            </tr>
+            <tr ng-repeat="book in books | filter: searchBook | orderBy:orderByField:reverseSort | limitTo:rowCount track by $index">
+                <td>
+                    {{book.name}}
+                </td>
+                <td>
+                    {{book.author}}
+                </td>
+                <td>
+                    {{book.publish}}
+                </td>
+                <td>
+                    <input type="button" value="Remove" class="btn btn-warning" ng-click="removeRow(book.name)" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
